@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const routes = require('./routes/loger_routes')
+const telegramRoutes = require('./routes/telegram_routes')
 var bodyParser = require('body-parser')
 
 
@@ -11,7 +12,8 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
-app.use(routes)
+app.use('/logs', routes)
+app.use('/telegram-bot', telegramRoutes)
 
 async function start() {
     const env = process.env

@@ -2,7 +2,7 @@ const { Router } = require('express')
 const Log = require('../models/Log')
 const router = Router()
 
-router.get('/get-all', async (_, res) => {
+router.get('/get', async (_, res) => {
   const logs = await Log.find({})
   res.send(logs)
 })
