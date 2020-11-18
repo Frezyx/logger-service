@@ -9,6 +9,7 @@ router.get('/get', async (_, res) => {
 })
 
 router.post('/create', async (req, res) => {
+    const isBotEnabled = process.env.BOTENABLED == 'true'
     try {
         const log = new Log({
             message: req.body.message,
@@ -19,10 +20,12 @@ router.post('/create', async (req, res) => {
         })
         await log.save()
         res.status(201).send('Create new log')
+        if(isBotEnabled){
+            TelegramBotService.sendAlerts(log)
+        }
     } catch (error) {
         res.status(500).send('Log is not created')
     }
-    TelegramBotService.sendAlerts("ssss")
 })
 
 router.delete('/delete-all', async (_, res) => {
