@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const Log = require('../models/Log')
+const TelegramBotService = require('../utils/telegram-bot-service')
 const router = Router()
 
 router.get('/get', async (_, res) => {
@@ -21,6 +22,7 @@ router.post('/create', async (req, res) => {
     } catch (error) {
         res.status(500).send('Log is not created')
     }
+    TelegramBotService.sendAlerts("ssss")
 })
 
 router.delete('/delete-all', async (_, res) => {
